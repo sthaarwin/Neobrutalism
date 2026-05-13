@@ -14,13 +14,20 @@ interface Project {
   stars: number;
 }
 
+interface Category {
+  name: string;
+  color: string;
+  textColor: string;
+  projects: Project[];
+}
+
 interface Proficiency {
   name: string;
   percentage: number;
 }
 
 export default function Home() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [proficiencies, setProficiencies] = useState<Proficiency[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +35,7 @@ export default function Home() {
     fetch('/api/github')
       .then((res) => res.json())
       .then((data) => {
-        if (data.projects) setProjects(data.projects);
+        if (data.categories) setCategories(data.categories);
         if (data.proficiencies) setProficiencies(data.proficiencies);
       })
       .catch(console.error)
@@ -39,7 +46,7 @@ export default function Home() {
     <main className="min-h-screen bg-background">
       <Hero />
       <Expertise proficiencies={loading ? [] : proficiencies} />
-      <Projects projects={loading ? [] : projects} />
+      <Projects categories={loading ? [] : categories} />
       <Contact />
     </main>
   );

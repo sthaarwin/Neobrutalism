@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
+import { config } from '../github-config';
 
 export async function GET() {
   try {
-    const username = 'sthaarwin';
-    
     const reposResponse = await fetch(
-      `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
+      `https://api.github.com/users/${config.username}/repos?sort=updated&per_page=100`,
       {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
@@ -22,24 +21,56 @@ export async function GET() {
     const repos = await reposResponse.json();
 
     const languageCounts: Record<string, number> = {};
-    const projects = repos
-      .filter((repo: any) => !repo.fork && repo.description)
-      .slice(0, 12)
-      .map((repo: any) => {
-        const lang = repo.language?.toLowerCase() || 'other';
-        languageCounts[lang] = (languageCounts[lang] || 0) + 1;
+    const excludePatterns = config.excludePatterns.map(p => p.toLowerCase());
 
-        return {
-          name: repo.name.toUpperCase(),
-          description: repo.description,
-          tags: [
-            repo.language || 'Code',
-            repo.topics?.[0] || 'Project',
-          ].filter(Boolean),
-          url: repo.html_url,
-          stars: repo.stargazers_count,
-        };
-      });
+    const repoMap = new Map(repos.map((r: any) => [r.name.toLowerCase(), r]));
+
+    const allIncludedRepos = new Set<string>();
+    config.categories.forEach(cat => {
+      cat.repos.forEach(name => allIncludedRepos.add(name.toLowerCase()));
+    });
+    config.includeForks.forEach(name => allIncludedRepos.add(name.toLowerCase()));
+
+    const categorizedProjects = config.categories.map(category => {
+      const projects = category.repos
+        .map(repoName => repoMap.get(repoName.toLowerCase()))
+        .filter((repo): repo is any => {
+          if (!repo) return false;
+          
+          const nameLower = repo.name.toLowerCase();
+          if (excludePatterns.some(pattern => nameLower.includes(pattern))) {
+            return false;
+          }
+          
+          if (repo.fork && !config.includeForks.some(f => f.toLowerCase() === nameLower)) {
+            return false;
+          }
+          
+          return true;
+        })
+        .map(repo => {
+          const lang = repo.language?.toLowerCase() || 'other';
+          languageCounts[lang] = (languageCounts[lang] || 0) + 1;
+
+          return {
+            name: repo.name.toUpperCase(),
+            description: repo.description,
+            tags: [
+              repo.language || 'Code',
+              repo.topics?.[0] || 'Project',
+            ].filter(Boolean),
+            url: repo.html_url,
+            stars: repo.stargazers_count,
+          };
+        });
+
+      return {
+        name: category.name,
+        color: category.color,
+        textColor: category.textColor,
+        projects,
+      };
+    });
 
     const totalLanguages = Object.values(languageCounts).reduce((a, b) => a + b, 0);
     const proficiencies = Object.entries(languageCounts)
@@ -50,7 +81,7 @@ export async function GET() {
       .sort((a, b) => b.percentage - a.percentage)
       .slice(0, 8);
 
-    return NextResponse.json({ projects, proficiencies });
+    return NextResponse.json({ categories: categorizedProjects, proficiencies });
   } catch (error) {
     console.error('GitHub API error:', error);
     return NextResponse.json(
