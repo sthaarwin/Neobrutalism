@@ -46,7 +46,7 @@ export function Contact() {
                   GITHUB
                 </Link>
                 <Link
-                  href="#"
+                  href="https://www.linkedin.com/in/arwin-shrestha-7532463a1/"
                   className="block border-4 border-foreground bg-secondary text-secondary-foreground px-6 py-3 font-bold hover:translate-x-1 hover:translate-y-1 transition-all shadow-[3px_3px_0px_rgba(0,0,0,1)]"
                 >
                   LINKEDIN
@@ -65,7 +65,7 @@ export function Contact() {
               <h3 className="text-xl font-bold text-foreground mb-6 tracking-tight">QUICK INFO</h3>
               <div className="space-y-3 text-foreground font-medium">
                 <p><span className="font-bold">STATUS:</span> Available for Projects</p>
-                <p><span className="font-bold">TIMEZONE:</span> UTC+0</p>
+                <p><span className="font-bold">TIMEZONE:</span> UTC+5:45</p>
                 <p><span className="font-bold">RESPONSE TIME:</span> 24-48 Hours</p>
               </div>
             </div>

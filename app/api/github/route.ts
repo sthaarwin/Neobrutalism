@@ -25,12 +25,6 @@ export async function GET() {
 
     const repoMap = new Map(repos.map((r: any) => [r.name.toLowerCase(), r]));
 
-    const allIncludedRepos = new Set<string>();
-    config.categories.forEach(cat => {
-      cat.repos.forEach(name => allIncludedRepos.add(name.toLowerCase()));
-    });
-    config.includeForks.forEach(name => allIncludedRepos.add(name.toLowerCase()));
-
     const categorizedProjects = config.categories.map(category => {
       const projects = category.repos
         .map(repoName => repoMap.get(repoName.toLowerCase()))
@@ -77,6 +71,7 @@ export async function GET() {
 
     const totalLanguages = Object.values(languageCounts).reduce((a, b) => a + b, 0);
     const proficiencies = Object.entries(languageCounts)
+      .filter(([lang]) => lang !== 'other')
       .map(([lang, count]) => ({
         name: lang.charAt(0).toUpperCase() + lang.slice(1),
         percentage: Math.round((count / totalLanguages) * 100),

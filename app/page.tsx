@@ -1,52 +1,39 @@
-'use client';
-
 import { Hero } from '@/components/hero';
-import { Expertise } from '@/components/expertise';
+import { Gallery } from '@/components/gallery';
+import { Proficiencies } from '@/components/proficiencies';
+import { ProjectsSkeleton } from '@/components/projects-skeleton';
 import { Projects } from '@/components/projects';
 import { Contact } from '@/components/contact';
-import { useEffect, useState } from 'react';
+import { Suspense } from 'react';
 
-interface Project {
-  name: string;
-  description: string;
-  tags: string[];
-  url: string;
-  stars: number;
+async function getGitHubData() {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/github`, { 
+      next: { revalidate: 3600 },
+      cache: 'force-cache'
+    });
+    
+    if (!res.ok) return { categories: [], proficiencies: [] };
+    return res.json();
+  } catch {
+    return { categories: [], proficiencies: [] };
+  }
 }
 
-interface Category {
-  name: string;
-  color: string;
-  textColor: string;
-  projects: Project[];
-}
-
-interface Proficiency {
-  name: string;
-  percentage: number;
-}
-
-export default function Home() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [proficiencies, setProficiencies] = useState<Proficiency[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/api/github')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.categories) setCategories(data.categories);
-        if (data.proficiencies) setProficiencies(data.proficiencies);
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, []);
+export default async function Home() {
+  const { categories, proficiencies } = await getGitHubData();
 
   return (
     <main className="min-h-screen bg-background">
       <Hero />
-      <Expertise proficiencies={loading ? [] : proficiencies} />
-      <Projects categories={loading ? [] : categories} />
+      <Suspense fallback={null}>
+        <Gallery />
+      </Suspense>
+      <Proficiencies proficiencies={proficiencies} />
+      <Suspense fallback={<ProjectsSkeleton />}>
+        <Projects categories={categories} />
+      </Suspense>
       <Contact />
     </main>
   );

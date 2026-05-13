@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { scrollToSection, scrollToTop } from '@/lib/smooth-scroll';
 
 export function Hero() {
   const [scrolled, setScrolled] = useState(false);
@@ -23,17 +23,26 @@ export function Hero() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold tracking-tight text-foreground">ARWIN</div>
+          <div className="text-2xl font-bold tracking-tight text-foreground cursor-pointer" onClick={scrollToTop}>ARWIN</div>
           <div className="flex gap-8">
-            <Link href="#expertise" className="text-foreground font-bold hover:text-foreground transition-all hover:bg-primary px-2 py-1">
-              EXPERTISE
-            </Link>
-            <Link href="#projects" className="text-foreground font-bold hover:text-foreground transition-all hover:bg-primary px-2 py-1">
+            <button 
+              onClick={() => scrollToSection('gallery')} 
+              className="text-foreground font-bold hover:text-foreground transition-all hover:bg-primary px-2 py-1 cursor-pointer"
+            >
+              GALLERY
+            </button>
+            <button 
+              onClick={() => scrollToSection('projects')} 
+              className="text-foreground font-bold hover:text-foreground transition-all hover:bg-primary px-2 py-1 cursor-pointer"
+            >
               PROJECTS
-            </Link>
-            <Link href="#contact" className="text-foreground font-bold hover:text-foreground transition-all hover:bg-primary px-2 py-1">
+            </button>
+            <button 
+              onClick={() => scrollToSection('contact')} 
+              className="text-foreground font-bold hover:text-foreground transition-all hover:bg-primary px-2 py-1 cursor-pointer"
+            >
               CONTACT
-            </Link>
+            </button>
           </div>
         </div>
       </nav>
@@ -57,10 +66,16 @@ export function Hero() {
             </p>
 
             <div className="flex gap-4">
-              <button className="border-4 border-foreground bg-foreground text-background px-8 py-4 font-bold text-lg hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[4px_4px_0px_rgba(0,0,0,1)]">
+              <button 
+                onClick={() => scrollToSection('gallery')}
+                className="border-4 border-foreground bg-foreground text-background px-8 py-4 font-bold text-lg hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[4px_4px_0px_rgba(0,0,0,1)] cursor-pointer"
+              >
                 VIEW WORK
               </button>
-              <button className="border-4 border-foreground bg-transparent text-foreground px-8 py-4 font-bold text-lg hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[4px_4px_0px_rgba(0,0,0,1)]">
+              <button 
+                onClick={() => scrollToSection('contact')}
+                className="border-4 border-foreground bg-transparent text-foreground px-8 py-4 font-bold text-lg hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[4px_4px_0px_rgba(0,0,0,1)] cursor-pointer"
+              >
                 GET IN TOUCH
               </button>
             </div>

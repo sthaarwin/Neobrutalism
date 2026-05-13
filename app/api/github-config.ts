@@ -13,30 +13,33 @@ export const config = {
       repos: [
         'axtone',
         'pulseai',
-        'tinygpt',
         'satyaTathya',
         'axground',
         'nepgraph',
+        'FNEPSE',
       ],
     },
     {
-      name: 'WEB AND APP DEVELOPMENT',
+      name: 'WEB & APP DEVELOPMENT',
       color: 'bg-secondary',
       textColor: 'text-secondary-foreground',
       repos: [
         'axeaid',
         'ecosnap',
+        'dental-smile',
         'portfolio-2.0',
-
+        'AskHerOut',
       ],
     },
-    {
+{
       name: 'SYSTEMS & GRAPHICS',
       color: 'bg-accent',
       textColor: 'text-accent-foreground',
       repos: [
-        'graphicslab',
-        'ML Visualizer'
+        'ML-VISUALIZER',
+        'axnux',
+        'axscript',
+        'bootloader',
       ],
     },
   ],
