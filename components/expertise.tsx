@@ -1,27 +1,20 @@
 'use client';
 
-export function Expertise() {
+interface Proficiency {
+  name: string;
+  percentage: number;
+}
+
+interface ExpertiseProps {
+  proficiencies: Proficiency[];
+}
+
+export function Expertise({ proficiencies }: ExpertiseProps) {
   const expertiseItems = [
-    {
-      title: 'LANGUAGES',
-      color: 'bg-primary',
-      textColor: 'text-foreground',
-    },
-    {
-      title: 'LOW-LEVEL',
-      color: 'bg-secondary',
-      textColor: 'text-secondary-foreground',
-    },
-    {
-      title: '3D GRAPHICS',
-      color: 'bg-accent',
-      textColor: 'text-accent-foreground',
-    },
-    {
-      title: 'AI SYSTEMS',
-      color: 'bg-foreground',
-      textColor: 'text-background',
-    },
+    { title: 'LANGUAGES', color: 'bg-primary', textColor: 'text-foreground' },
+    { title: 'LOW-LEVEL', color: 'bg-secondary', textColor: 'text-secondary-foreground' },
+    { title: '3D GRAPHICS', color: 'bg-accent', textColor: 'text-accent-foreground' },
+    { title: 'AI SYSTEMS', color: 'bg-foreground', textColor: 'text-background' },
   ];
 
   return (
@@ -44,15 +37,24 @@ export function Expertise() {
           ))}
         </div>
 
-        {/* Tech Stack Details */}
         <div className="mt-16 border-4 border-foreground bg-white p-8 shadow-[6px_6px_0px_rgba(0,0,0,1)]">
           <h3 className="text-2xl font-bold text-foreground mb-8 tracking-tight">LANGUAGE PROFICIENCIES</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {['Python', 'TypeScript', 'JavaScript', 'C++', 'React', 'Three.js', 'Next.js', 'Audio Processing', 'Machine Learning', 'Graph Theory'].map((tech) => (
-              <div key={tech} className="border-4 border-foreground bg-primary px-4 py-3 font-bold text-foreground text-center text-sm">
-                {tech}
-              </div>
-            ))}
+            {proficiencies.length === 0 ? (
+              <>
+                {['Python', 'TypeScript', 'JavaScript', 'C++', 'React', 'Three.js', 'Next.js', 'Audio Processing', 'Machine Learning', 'Graph Theory'].map((tech) => (
+                  <div key={tech} className="border-4 border-foreground bg-primary px-4 py-3 font-bold text-foreground text-center text-sm">
+                    {tech}
+                  </div>
+                ))}
+              </>
+            ) : (
+              proficiencies.map((tech) => (
+                <div key={tech.name} className="border-4 border-foreground bg-primary px-4 py-3 font-bold text-foreground text-center text-sm">
+                  {tech.name}
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

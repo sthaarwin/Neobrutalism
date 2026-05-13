@@ -40,7 +40,7 @@ export function Contact() {
               <h3 className="text-xl font-bold text-foreground mb-6 tracking-tight">CONNECT WITH ME</h3>
               <div className="space-y-3">
                 <Link
-                  href="#"
+                  href="https://github.com/sthaarwin"
                   className="block border-4 border-foreground bg-accent text-accent-foreground px-6 py-3 font-bold hover:translate-x-1 hover:translate-y-1 transition-all shadow-[3px_3px_0px_rgba(0,0,0,1)]"
                 >
                   GITHUB
