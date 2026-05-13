@@ -1,0 +1,140 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #F7F7F7;
+  --foreground: #1A1A1A;
+  --card: #F7F7F7;
+  --card-foreground: #1A1A1A;
+  --popover: #F7F7F7;
+  --popover-foreground: #1A1A1A;
+  --primary: #FFD600;
+  --primary-foreground: #1A1A1A;
+  --secondary: #FF6B6B;
+  --secondary-foreground: #FFFFFF;
+  --muted: #E8E8E8;
+  --muted-foreground: #4A4A4A;
+  --accent: #4ECDC4;
+  --accent-foreground: #1A1A1A;
+  --destructive: #FF6B6B;
+  --destructive-foreground: #FFFFFF;
+  --border: #000000;
+  --input: #FFFFFF;
+  --ring: #FFD600;
+  --chart-1: #FFD600;
+  --chart-2: #FF6B6B;
+  --chart-3: #4ECDC4;
+  --chart-4: #1A1A1A;
+  --chart-5: #4A4A4A;
+  --radius: 0px;
+  --sidebar: #F7F7F7;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #FFD600;
+  --sidebar-primary-foreground: #1A1A1A;
+  --sidebar-accent: #FF6B6B;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #000000;
+  --sidebar-ring: #FFD600;
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Neobrutalism Animations */
+@keyframes brutalistShift {
+  0% {
+    transform: translate(0, 0);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
+  }
+  100% {
+    transform: translate(1px, 1px);
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 1);
+  }
+}
+
+@keyframes brutalistHover {
+  0%, 100% {
+    background-color: var(--primary);
+  }
+  50% {
+    background-color: #FFE033;
+  }
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+button, a {
+  transition: all 0.1s linear;
+}
+
+button:active, a:active {
+  animation: brutalistShift 0.1s ease-out forwards;
+}
+
+/* Navigation link hover states */
+nav a:hover {
+  background-color: var(--primary);
+  color: var(--foreground);
+}
+
+/* Text selection color for brutalist feel */
+::selection {
+  background-color: var(--primary);
+  color: var(--foreground);
+}
