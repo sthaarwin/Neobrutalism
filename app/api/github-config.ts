@@ -1,6 +1,10 @@
 export const config = {
   username: 'sthaarwin',
   
+  customDescriptions: {
+    'pulseai': 'Cuffless Blood Pressure Estimation using CNN BiLSTM with Attention Mechanism.',
+  },
+
   categories: [
     {
       name: 'AI & MACHINE LEARNING',
@@ -16,13 +20,14 @@ export const config = {
       ],
     },
     {
-      name: 'WEB DEVELOPMENT',
+      name: 'WEB AND APP DEVELOPMENT',
       color: 'bg-secondary',
       textColor: 'text-secondary-foreground',
       repos: [
         'axeaid',
         'ecosnap',
         'portfolio-2.0',
+
       ],
     },
     {
@@ -31,8 +36,7 @@ export const config = {
       textColor: 'text-accent-foreground',
       repos: [
         'graphicslab',
-        'picosynth',
-        'axterisk',
+        'ML Visualizer'
       ],
     },
   ],

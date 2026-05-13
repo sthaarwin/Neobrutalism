@@ -51,10 +51,13 @@ export async function GET() {
         .map(repo => {
           const lang = repo.language?.toLowerCase() || 'other';
           languageCounts[lang] = (languageCounts[lang] || 0) + 1;
+          
+          const customDesc = config.customDescriptions?.[repo.name.toLowerCase()];
+          const description = repo.description || customDesc || 'No description available';
 
           return {
             name: repo.name.toUpperCase(),
-            description: repo.description,
+            description,
             tags: [
               repo.language || 'Code',
               repo.topics?.[0] || 'Project',
