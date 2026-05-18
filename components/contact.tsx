@@ -95,7 +95,7 @@ export function Contact() {
 
           {/* Bottom Footer */}
           <div className="flex justify-between items-center pt-8 border-t-4 border-background">
-            <p className="text-background font-bold text-sm">© 2024 ARWIN. ALL SYSTEMS GO.</p>
+            <p className="text-background font-bold text-sm">© 2026 ARWIN. ALL SYSTEMS GO.</p>
             <p className="text-background font-bold text-sm">NEOBRUTALISM // DESIGN</p>
           </div>
         </div>
