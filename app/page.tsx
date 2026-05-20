@@ -5,34 +5,18 @@ import { ProjectsSkeleton } from '@/components/projects-skeleton';
 import { Projects } from '@/components/projects';
 import { Contact } from '@/components/contact';
 import { Suspense } from 'react';
+import data from '@/app/api/github-data';
 
-async function getGitHubData() {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/github`, { 
-      next: { revalidate: 3600 },
-      cache: 'force-cache'
-    });
-    
-    if (!res.ok) return { categories: [], proficiencies: [] };
-    return res.json();
-  } catch {
-    return { categories: [], proficiencies: [] };
-  }
-}
-
-export default async function Home() {
-  const { categories, proficiencies } = await getGitHubData();
-
+export default function Home() {
   return (
     <main className="min-h-screen bg-background">
       <Hero />
       <Suspense fallback={null}>
         <Gallery />
       </Suspense>
-      <Proficiencies proficiencies={proficiencies} />
+      <Proficiencies proficiencies={data.proficiencies} />
       <Suspense fallback={<ProjectsSkeleton />}>
-        <Projects categories={categories} />
+        <Projects categories={data.categories} />
       </Suspense>
       <Contact />
     </main>

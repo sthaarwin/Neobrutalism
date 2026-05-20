@@ -1,0 +1,141 @@
+const data = {
+  categories: [
+    {
+      name: 'AI & MACHINE LEARNING',
+      color: 'bg-primary',
+      textColor: 'text-foreground',
+      projects: [
+        {
+          name: 'AXTONE',
+          description: 'AI that can detect and produce Guitar tabs of provided vocal(mp3)/midi files.',
+          tags: ['JavaScript', 'Project'],
+          url: 'https://github.com/sthaarwin/AxTone',
+          stars: 4,
+        },
+        {
+          name: 'PULSEAI',
+          description: 'Cuffless Blood Pressure Estimation using CNN BiLSTM with Attention Mechanism.',
+          tags: ['Python', 'deep-learning'],
+          url: 'https://github.com/sthaarwin/pulseAI',
+          stars: 0,
+        },
+        {
+          name: 'SATYATATHYA',
+          description: 'Tiktok news autheticity checker.',
+          tags: ['Python', 'Project'],
+          url: 'https://github.com/sthaarwin/SatyaTathya',
+          stars: 0,
+        },
+        {
+          name: 'AXGROUND',
+          description: 'Simulated environment for reinforcement learning model based on NEPSE data.',
+          tags: ['TypeScript', 'Project'],
+          url: 'https://github.com/sthaarwin/Axground',
+          stars: 0,
+        },
+        {
+          name: 'NEPGRAPH',
+          description: 'Community Detection in NEPSE Investor Networks.',
+          tags: ['Python', 'Project'],
+          url: 'https://github.com/sthaarwin/Nepgraph',
+          stars: 0,
+        },
+        {
+          name: 'FNEPSE',
+          description: 'stock market analyzer and predictor using CNN and LSTM',
+          tags: ['Jupyter Notebook', 'Project'],
+          url: 'https://github.com/sthaarwin/FNEPSE',
+          stars: 1,
+        },
+      ],
+    },
+    {
+      name: 'WEB & APP DEVELOPMENT',
+      color: 'bg-secondary',
+      textColor: 'text-secondary-foreground',
+      projects: [
+        {
+          name: 'AXEAID',
+          description: 'Guitar toolkit for tuning, timing, and ear training.',
+          tags: ['TypeScript', 'Project'],
+          url: 'https://github.com/sthaarwin/AxeAid',
+          stars: 0,
+        },
+        {
+          name: 'ECOSNAP',
+          description: 'Just clip photos.',
+          tags: ['TypeScript', 'Project'],
+          url: 'https://github.com/sthaarwin/EcoSnap',
+          stars: 0,
+        },
+        {
+          name: 'DENTAL-SMILE',
+          description: 'Modern web application designed to simplify dental appointment scheduling and management.',
+          tags: ['TypeScript', 'Project'],
+          url: 'https://github.com/sthaarwin/Dental-Smile',
+          stars: 2,
+        },
+        {
+          name: 'PORTFOLIO-2.0',
+          description: '3d portfolio based on three.js',
+          tags: ['TypeScript', 'Project'],
+          url: 'https://github.com/sthaarwin/portfolio-2.0',
+          stars: 0,
+        },
+        {
+          name: 'ASKHEROUT',
+          description: 'want to ask her out on a date?? well look no futher.',
+          tags: ['TypeScript', 'Project'],
+          url: 'https://github.com/sthaarwin/AskHerOut',
+          stars: 0,
+        },
+      ],
+    },
+    {
+      name: 'SYSTEMS & GRAPHICS',
+      color: 'bg-accent',
+      textColor: 'text-accent-foreground',
+      projects: [
+        {
+          name: 'ML-VISUALIZER',
+          description: 'Interactive Visualization of Machine Learning Model Training using OpenGL and ImGui.',
+          tags: ['C++', 'imgui-glfw'],
+          url: 'https://github.com/sthaarwin/ML-Visualizer',
+          stars: 0,
+        },
+        {
+          name: 'AXNUX',
+          description: 'A self made linux distro.',
+          tags: ['Shell', 'Project'],
+          url: 'https://github.com/sthaarwin/AxNux',
+          stars: 0,
+        },
+        {
+          name: 'AXSCRIPT',
+          description: 'A simple self-made programming language',
+          tags: ['C++', 'Project'],
+          url: 'https://github.com/sthaarwin/AxScript',
+          stars: 2,
+        },
+        {
+          name: 'BOOTLOADER',
+          description: 'A custom bootloader.',
+          tags: ['C', 'Project'],
+          url: 'https://github.com/sthaarwin/bootloader',
+          stars: 1,
+        },
+      ],
+    },
+  ],
+  proficiencies: [
+    { name: 'Typescript', percentage: 43 },
+    { name: 'Python', percentage: 14 },
+    { name: 'C++', percentage: 14 },
+    { name: 'Javascript', percentage: 7 },
+    { name: 'Jupyter notebook', percentage: 7 },
+    { name: 'Shell', percentage: 7 },
+    { name: 'C', percentage: 7 },
+  ],
+};
+
+export default data;

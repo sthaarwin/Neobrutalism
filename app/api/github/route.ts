@@ -1,25 +1,28 @@
 import { NextResponse } from 'next/server';
 import { config } from '../github-config';
 
+async function getGitHubData() {
+  const reposResponse = await fetch(
+    `https://api.github.com/users/${config.username}/repos?sort=updated&per_page=100`,
+    {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'Neobrutalism-Porfolio',
+      },
+      next: { revalidate: 0 }
+    }
+  );
+
+  if (!reposResponse.ok) {
+    throw new Error(`GitHub API error: ${reposResponse.status}`);
+  }
+
+  return reposResponse.json();
+}
+
 export async function GET() {
   try {
-    const reposResponse = await fetch(
-      `https://api.github.com/users/${config.username}/repos?sort=updated&per_page=100`,
-      {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': 'Neobrutalism-Porfolio',
-        },
-        next: { revalidate: 3600 }
-      }
-    );
-
-    if (!reposResponse.ok) {
-      throw new Error(`GitHub API error: ${reposResponse.status}`);
-    }
-
-    const repos = await reposResponse.json();
-
+    const repos = await getGitHubData();
     const languageCounts: Record<string, number> = {};
     const excludePatterns = config.excludePatterns.map(p => p.toLowerCase());
 
@@ -44,10 +47,12 @@ export async function GET() {
         })
         .map(repo => {
           const lang = repo.language?.toLowerCase() || 'other';
-          languageCounts[lang] = (languageCounts[lang] || 0) + 1;
-          
+          if (lang !== 'other') {
+            languageCounts[lang] = (languageCounts[lang] || 0) + 1;
+          }
+
           const customDesc = config.customDescriptions?.[repo.name.toLowerCase()];
-          const description = repo.description || customDesc || 'No description available';
+          const description = repo.description || customDesc || '';
 
           return {
             name: repo.name.toUpperCase(),
@@ -71,7 +76,6 @@ export async function GET() {
 
     const totalLanguages = Object.values(languageCounts).reduce((a, b) => a + b, 0);
     const proficiencies = Object.entries(languageCounts)
-      .filter(([lang]) => lang !== 'other')
       .map(([lang, count]) => ({
         name: lang.charAt(0).toUpperCase() + lang.slice(1),
         percentage: Math.round((count / totalLanguages) * 100),
